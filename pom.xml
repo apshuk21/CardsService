@@ -79,7 +79,7 @@
 				<configuration>
 					<image>
 						<name>
-							apshuk21/${project.artifactId}:s4
+							apshuk21/${project.artifactId}:s6
 						</name>
 					</image>
 				</configuration>

@@ -1,12 +1,15 @@
 package com.apoorva.cards.controllers;
 
 import com.apoorva.cards.constants.CardsConstants;
+import com.apoorva.cards.dtos.CardsContactInfoDto;
 import com.apoorva.cards.dtos.CardsDto;
 import com.apoorva.cards.dtos.ResponseDto;
 import com.apoorva.cards.services.ICardsService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,11 @@ import org.springframework.web.bind.annotation.*;
 public class CardsController {
 
     private final ICardsService cardsService;
+    private final Environment environment;
+    private final CardsContactInfoDto cardsContactInfoDto;
+
+    @Value("${build.active}")
+    private String buildInfo;
 
 
     @PostMapping("/create")
@@ -73,5 +81,23 @@ public class CardsController {
         return ResponseEntity
                 .status(HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(CardsConstants.MESSAGE_417_DELETE, CardsConstants.MESSAGE_417_DELETE));
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<String> getActiveProfile() {
+        return ResponseEntity
+                .ok(environment.getProperty("SPRING_PROFILES_ACTIVE"));
+    }
+
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity
+                .ok(environment.getProperty("JAVA_HOME"));
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .ok(cardsContactInfoDto);
     }
 }

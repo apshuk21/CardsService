@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+
+build:
+  version: 1.0
+
+cards:
+  message: "Welcome to Global Gateway Bank cards related Prod APIs"
+  contactDetails:
+    name: "Apoorva Shukla - Developer"
+    email: "apshuk21@gmail.com"
+  onCallSupport:
+    - (810) 875-4367
+    - (901) 236-1267
